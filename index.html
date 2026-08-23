@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J2BG — Boutique Artisanale</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #f46530;
+  --orange-dark: #d9521e;
+  --orange-light: #fff3ee;
+  --wood: #8B5E3C;
+  --cream: #FDF8F3;
+  --dark: #1E1209;
+  --gray: #6B6B6B;
+  --gray-light: #F4F1EE;
+  --border: #E8E0D8;
+  --white: #FFFFFF;
+  --green: #2ECC71;
+  --red: #e74c3c;
+  --blue: #3498db;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat',sans-serif; background:var(--cream); color:var(--dark); }
+
+/* NAV */
+nav {
+  background:white; border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.nav-inner {
+  max-width:1200px; margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; justify-content:space-between; height:64px;
+}
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-icon { width:38px; height:38px; background:var(--dark); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.logo-text { font-size:1.4rem; font-weight:800; color:var(--dark); }
+.logo-text span { color:var(--orange); }
+.nav-links { display:flex; gap:24px; }
+.nav-links a { text-decoration:none; color:var(--gray); font-size:0.85rem; font-weight:600; transition:color 0.2s; }
+.nav-links a:hover { color:var(--orange); }
+.nav-actions { display:flex; align-items:center; gap:10px; }
+.nav-btn {
+  display:flex; align-items:center; gap:6px; padding:8px 14px;
+  border-radius:8px; font-family:'Montserrat',sans-serif;
+  font-size:0.8rem; font-weight:700; cursor:pointer; border:none;
+  transition:all 0.2s; text-decoration:none;
+}
+.btn-account { background:var(--gray-light); color:var(--dark); }
+.btn-account:hover { background:var(--border); }
+.btn-cart { background:var(--orange); color:white; position:relative; }
+.btn-cart:hover { background:var(--orange-dark); }
+.cart-count {
+  position:absolute; top:-6px; right:-6px;
+  background:var(--dark); color:white;
+  width:18px; height:18px; border-radius:50%;
+  font-size:0.6rem; font-weight:800;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, var(--dark) 0%, #3d2810 100%);
+  padding: 72px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(244,101,48,0.15) 0%, transparent 60%);
+}
+.hero-content { position:relative; max-width:600px; margin:0 auto; }
+.hero-tag {
+  display:inline-block; background:rgba(244,101,48,0.2); color:var(--orange);
+  border:1px solid rgba(244,101,48,0.3); border-radius:100px;
+  font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  padding:6px 16px; margin-bottom:20px;
+}
+.hero h1 {
+  font-family:'Lora',serif; font-size:2.8rem; font-weight:600;
+  color:white; line-height:1.2; margin-bottom:16px;
+}
+.hero h1 em { color:var(--orange); font-style:italic; }
+.hero p { color:rgba(255,255,255,0.65); font-size:0.95rem; line-height:1.7; margin-bottom:28px; }
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-hero {
+  padding:12px 28px; border-radius:10px; font-family:'Montserrat',sans-serif;
+  font-size:0.85rem; font-weight:700; cursor:pointer; border:none;
+  transition:all 0.2s; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+}
+.btn-hero-primary { background:var(--orange); color:white; box-shadow:0 4px 20px rgba(244,101,48,0.4); }
+.btn-hero-primary:hover { background:var(--orange-dark); transform:translateY(-1px); }
+.btn-hero-ghost { background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); }
+.btn-hero-ghost:hover { background:rgba(255,255,255,0.18); }
+
+/* SHOP */
+.shop-section { max-width:1200px; margin:0 auto; padding:48px 24px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
+.section-title { font-size:1.3rem; font-weight:800; }
+.section-title span { color:var(--orange); }
+.filters { display:flex; gap:8px; flex-wrap:wrap; }
+.filter-btn {
+  padding:7px 16px; border-radius:100px; font-family:'Montserrat',sans-serif;
+  font-size:0.76rem; font-weight:700; cursor:pointer; border:2px solid var(--border);
+  background:white; color:var(--gray); transition:all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active { border-color:var(--orange); background:var(--orange-light); color:var(--orange); }
+
+.products-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:20px; }
+.product-card {
+  background:white; border-radius:16px; overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:all 0.25s;
+  cursor:pointer; border:2px solid transparent;
+}
+.product-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,0.1); border-color:var(--orange); }
+.product-img {
+  height:160px; background:var(--orange-light);
+  display:flex; align-items:center; justify-content:center;
+  font-size:3.5rem; position:relative; overflow:hidden;
+}
+.product-img img { width:100%; height:100%; object-fit:cover; }
+.product-badge {
+  position:absolute; top:10px; right:10px;
+  padding:3px 10px; border-radius:100px; font-size:0.65rem; font-weight:700;
+}
+.badge-nouveau { background:#e8f8ef; color:var(--green); }
+.badge-promo { background:var(--orange-light); color:var(--orange); }
+.product-body { padding:16px; }
+.product-cat { font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--orange); margin-bottom:6px; }
+.product-name { font-size:0.92rem; font-weight:700; margin-bottom:6px; line-height:1.3; }
+.product-desc { font-size:0.75rem; color:var(--gray); line-height:1.5; margin-bottom:12px; }
+.product-footer { display:flex; align-items:center; justify-content:space-between; }
+.price-wrap { display:flex; align-items:baseline; gap:6px; }
+.price { font-size:1.1rem; font-weight:800; color:var(--dark); }
+.old-price { font-size:0.78rem; color:var(--gray); text-decoration:line-through; }
+.add-btn {
+  width:34px; height:34px; background:var(--orange); border:none;
+  border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:1rem; color:white; transition:all 0.2s;
+}
+.add-btn:hover { background:var(--orange-dark); transform:scale(1.05); }
+.out-of-stock { font-size:0.72rem; color:var(--red); font-weight:700; padding:4px 10px; background:#fde8e8; border-radius:100px; }
+
+/* OVERLAYS */
+.overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.5);
+  z-index:200; opacity:0; pointer-events:none; transition:opacity 0.25s;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.overlay.open { opacity:1; pointer-events:all; }
+.modal {
+  background:white; border-radius:18px; width:100%; max-width:480px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.2); transform:scale(0.95);
+  transition:transform 0.25s; overflow:hidden; max-height:90vh;
+  display:flex; flex-direction:column;
+}
+.overlay.open .modal { transform:scale(1); }
+.modal-head {
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.modal-head h3 { font-size:1rem; font-weight:800; }
+.modal-close {
+  background:var(--gray-light); border:none; width:30px; height:30px;
+  border-radius:50%; cursor:pointer; font-size:0.9rem;
+  display:flex; align-items:center; justify-content:center; transition:background 0.2s;
+}
+.modal-close:hover { background:var(--border); }
+.modal-body { padding:24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:14px; }
+.modal-foot { padding:16px 24px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; flex-shrink:0; }
+
+.form-group { display:flex; flex-direction:column; gap:5px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-group label { font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray); }
+.form-group input, .form-group select, .form-group textarea {
+  border:1.5px solid var(--border); border-radius:8px; padding:10px 13px;
+  font-family:'Montserrat',sans-serif; font-size:0.85rem; outline:none;
+  transition:border-color 0.2s; background:var(--gray-light); color:var(--dark);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--orange); background:white; }
+
+/* CART SIDEBAR */
+.cart-sidebar {
+  position:fixed; right:0; top:0; bottom:0; width:420px; background:white;
+  z-index:300; transform:translateX(100%); transition:transform 0.3s;
+  display:flex; flex-direction:column; box-shadow:-8px 0 40px rgba(0,0,0,0.15);
+}
+.cart-sidebar.open { transform:none; }
+.cart-backdrop {
+  position:fixed; inset:0; background:rgba(0,0,0,0.4);
+  z-index:299; opacity:0; pointer-events:none; transition:opacity 0.3s;
+}
+.cart-backdrop.open { opacity:1; pointer-events:all; }
+.cart-head {
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.cart-head h3 { font-size:1rem; font-weight:800; }
+.cart-items { flex:1; overflow-y:auto; padding:16px 24px; }
+.cart-item {
+  display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--border);
+  align-items:center;
+}
+.cart-item:last-child { border-bottom:none; }
+.cart-item-img {
+  width:52px; height:52px; background:var(--orange-light); border-radius:10px;
+  display:flex; align-items:center; justify-content:center; font-size:1.6rem;
+  flex-shrink:0; overflow:hidden;
+}
+.cart-item-img img { width:100%; height:100%; object-fit:cover; border-radius:10px; }
+.cart-item-info { flex:1; min-width:0; }
+.cart-item-name { font-size:0.84rem; font-weight:700; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cart-item-price { font-size:0.8rem; color:var(--orange); font-weight:700; }
+.qty-ctrl { display:flex; align-items:center; gap:6px; }
+.qty-btn {
+  width:26px; height:26px; border-radius:6px; border:1.5px solid var(--border);
+  background:white; cursor:pointer; font-size:0.9rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center; transition:all 0.15s;
+}
+.qty-btn:hover { border-color:var(--orange); color:var(--orange); }
+.qty-val { font-size:0.85rem; font-weight:700; min-width:18px; text-align:center; }
+.remove-item { background:none; border:none; cursor:pointer; color:#ccc; font-size:1rem; transition:color 0.2s; }
+.remove-item:hover { color:var(--red); }
+.cart-foot { padding:20px 24px; border-top:1px solid var(--border); }
+.cart-total { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.cart-total-label { font-size:0.85rem; font-weight:700; }
+.cart-total-amount { font-size:1.3rem; font-weight:800; color:var(--orange); }
+.btn-checkout {
+  width:100%; padding:14px; background:var(--orange); color:white; border:none;
+  border-radius:10px; font-family:'Montserrat',sans-serif; font-size:0.9rem;
+  font-weight:700; cursor:pointer; transition:all 0.2s;
+}
+.btn-checkout:hover { background:var(--orange-dark); }
+.cart-empty { text-align:center; padding:48px 0; color:var(--gray); }
+.cart-empty .emoji { font-size:2.5rem; margin-bottom:10px; }
+
+/* CHECKOUT MODAL */
+.checkout-modal { max-width:600px; }
+.checkout-steps { display:flex; gap:0; margin-bottom:24px; }
+.step {
+  flex:1; text-align:center; padding-bottom:12px;
+  border-bottom:3px solid var(--border); color:var(--gray);
+  font-size:0.72rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  transition:all 0.2s; cursor:default; position:relative;
+}
+.step.active { border-bottom-color:var(--orange); color:var(--orange); }
+.step.done { border-bottom-color:var(--green); color:var(--green); }
+.step-num { width:22px; height:22px; background:var(--border); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; margin-bottom:4px; transition:all 0.2s; }
+.step.active .step-num { background:var(--orange); color:white; }
+.step.done .step-num { background:var(--green); color:white; }
+.checkout-step-content { display:none; }
+.checkout-step-content.active { display:block; }
+.section-sub { font-size:0.78rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--gray); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+
+/* PAYMENT */
+.payment-method { display:flex; gap:10px; margin-bottom:16px; }
+.pay-opt {
+  flex:1; border:2px solid var(--border); border-radius:10px; padding:14px 12px;
+  cursor:pointer; text-align:center; transition:all 0.2s;
+}
+.pay-opt:hover, .pay-opt.selected { border-color:var(--orange); background:var(--orange-light); }
+.pay-opt .pay-icon { font-size:1.5rem; margin-bottom:6px; }
+.pay-opt .pay-label { font-size:0.72rem; font-weight:700; }
+.card-field { position:relative; }
+.card-field input { padding-right:50px; }
+.card-brand { position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:1.1rem; }
+
+/* ORDER SUMMARY IN CHECKOUT */
+.order-summary-items { background:var(--gray-light); border-radius:10px; padding:14px; margin-bottom:16px; }
+.sum-item { display:flex; justify-content:space-between; padding:5px 0; font-size:0.82rem; }
+.sum-item:not(:last-child) { border-bottom:1px solid var(--border); }
+.sum-total { display:flex; justify-content:space-between; font-size:1rem; font-weight:800; margin-top:10px; padding-top:10px; border-top:2px solid var(--border); }
+
+/* SUCCESS */
+.success-screen { text-align:center; padding:32px 0; }
+.success-icon { font-size:4rem; margin-bottom:16px; animation:popIn 0.4s ease; }
+@keyframes popIn { from { transform:scale(0); } to { transform:scale(1); } }
+.success-screen h3 { font-size:1.2rem; font-weight:800; margin-bottom:8px; }
+.success-screen p { font-size:0.85rem; color:var(--gray); line-height:1.7; }
+.order-ref { background:var(--orange-light); color:var(--orange); border-radius:8px; padding:12px; font-weight:800; font-size:0.95rem; margin:16px 0; }
+
+/* ACCOUNT MODAL */
+.tab-switch { display:flex; background:var(--gray-light); border-radius:10px; padding:4px; margin-bottom:20px; }
+.tab-btn { flex:1; padding:8px; border:none; background:none; font-family:'Montserrat',sans-serif; font-size:0.8rem; font-weight:700; cursor:pointer; border-radius:7px; transition:all 0.2s; color:var(--gray); }
+.tab-btn.active { background:white; color:var(--dark); box-shadow:0 2px 6px rgba(0,0,0,0.08); }
+
+/* USER MENU */
+.user-menu {
+  position:absolute; top:56px; right:24px; background:white;
+  border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.15);
+  min-width:200px; z-index:200; opacity:0; pointer-events:none;
+  transform:translateY(-10px); transition:all 0.2s; border:1px solid var(--border);
+}
+.user-menu.open { opacity:1; pointer-events:all; transform:none; }
+.user-menu-header { padding:14px 16px; border-bottom:1px solid var(--border); }
+.user-menu-name { font-weight:800; font-size:0.88rem; }
+.user-menu-email { font-size:0.72rem; color:var(--gray); }
+.user-menu-item { display:flex; align-items:center; gap:8px; padding:10px 16px; font-size:0.8rem; font-weight:600; cursor:pointer; transition:background 0.15s; color:var(--dark); border:none; background:none; width:100%; text-align:left; }
+.user-menu-item:hover { background:var(--gray-light); }
+.user-menu-item.danger { color:var(--red); }
+.user-menu hr { border:none; border-top:1px solid var(--border); margin:4px 0; }
+
+/* ORDERS HISTORY */
+.orders-history-modal { max-width:580px; }
+.order-hist-item { border:1.5px solid var(--border); border-radius:12px; padding:14px; margin-bottom:12px; cursor:pointer; transition:border-color 0.2s; }
+.order-hist-item:hover { border-color:var(--orange); }
+.order-hist-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.order-hist-ref { font-weight:800; font-size:0.85rem; color:var(--orange); }
+.order-hist-date { font-size:0.72rem; color:var(--gray); }
+.order-hist-items { font-size:0.78rem; color:var(--gray); margin-bottom:8px; }
+.order-hist-footer { display:flex; justify-content:space-between; align-items:center; }
+.status-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:100px; font-size:0.68rem; font-weight:700; }
+.status-attente { background:#fff8e1; color:#f39c12; }
+.status-prep { background:#e8f3fb; color:var(--blue); }
+.status-ok { background:#e8f8ef; color:var(--green); }
+.status-annule { background:#fde8e8; color:var(--red); }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--dark); color:white; padding:12px 22px; border-radius:10px;
+  font-size:0.82rem; font-weight:600; z-index:500; opacity:0;
+  transition:all 0.3s; display:flex; align-items:center; gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3); white-space:nowrap;
+}
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+
+/* FOOTER */
+footer { background:var(--dark); color:rgba(255,255,255,0.5); text-align:center; padding:32px; font-size:0.78rem; }
+footer strong { color:var(--orange); }
+
+/* DIVIDER */
+.divider { display:flex; align-items:center; gap:12px; margin:4px 0; color:var(--gray); font-size:0.75rem; }
+.divider::before, .divider::after { content:''; flex:1; height:1px; background:var(--border); }
+
+@media(max-width:600px) {
+  .hero h1 { font-size:2rem; }
+  .cart-sidebar { width:100%; }
+  .form-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🪵</div>
+      <div class="logo-text">J2<span>BG</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#boutique">Boutique</a>
+      <a href="#about">À propos</a>
+      <a href="admin.html">Administration</a>
+    </div>
+    <div class="nav-actions" style="position:relative">
+      <button class="nav-btn btn-account" id="accountBtn" onclick="toggleUserMenu()">
+        <span id="accountBtnIcon">👤</span>
+        <span id="accountBtnLabel">Mon compte</span>
+      </button>
+      <div class="user-menu" id="userMenu">
+        <div class="user-menu-header">
+          <div class="user-menu-name" id="menuUserName"></div>
+          <div class="user-menu-email" id="menuUserEmail"></div>
+        </div>
+        <button class="user-menu-item" onclick="openOrders()">📦 Mes commandes</button>
+        <button class="user-menu-item" onclick="openProfile()">✏️ Mon profil</button>
+        <hr>
+        <button class="user-menu-item danger" onclick="logout()">🚪 Se déconnecter</button>
+      </div>
+      <button class="nav-btn btn-cart" onclick="openCart()">
+        🛒 Panier
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">🪵 Artisanat bois &amp; gravure laser</div>
+    <h1>Créations en bois<br><em>personnalisées</em></h1>
+    <p>Chaque pièce est fabriquée avec soin au Collège Jacques Brel de Louvroil. Planches, horloges, porte clés — uniques et gravés pour vous.</p>
+    <div class="hero-actions">
+      <a href="#boutique" class="btn-hero btn-hero-primary">🛒 Découvrir la boutique</a>
+      <a href="#about" class="btn-hero btn-hero-ghost">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="shop-section" id="boutique">
+  <div class="section-header">
+    <div class="section-title">Nos <span>produits</span></div>
+    <div class="filters" id="filterBtns">
+      <button class="filter-btn active" onclick="setFilter('', this)">Tous</button>
+      <button class="filter-btn" onclick="setFilter('Gravure', this)">Gravure</button>
+      <button class="filter-btn" onclick="setFilter('Porte clés', this)">Porte clés</button>
+      <button class="filter-btn" onclick="setFilter('Goodies', this)">Goodies</button>
+      <button class="filter-btn" onclick="setFilter('Horloges', this)">Horloges</button>
+    </div>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--dark);padding:56px 24px;text-align:center">
+  <div style="max-width:600px;margin:0 auto">
+    <div style="font-size:2.5rem;margin-bottom:16px">🪵</div>
+    <h2 style="font-family:'Lora',serif;color:white;font-size:1.8rem;margin-bottom:16px">L'atelier <em style="color:var(--orange)">J2BG</em></h2>
+    <p style="color:rgba(255,255,255,0.6);line-height:1.8;font-size:0.9rem;margin-bottom:24px">
+      Née au Collège Jacques Brel de Louvroil, J2BG est une mini-entreprise scolaire spécialisée dans la création d'objets en bois personnalisés à la graveuse laser. Chaque produit est unique et fabriqué avec passion.
+    </p>
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.8rem"><span style="color:var(--orange);font-size:1.3rem;font-weight:800;display:block">📧</span>ce.0593686l@ac-lille.fr</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:0.8rem"><span style="color:var(--orange);font-size:1.3rem;font-weight:800;display:block">📞</span>+33 3 27 58 10 71</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:0.8rem"><span style="color:var(--orange);font-size:1.3rem;font-weight:800;display:block">📍</span>Louvroil, France</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <strong>J2BG</strong> — Mini-entreprise scolaire · Collège Jacques Brel, Louvroil</p>
+</footer>
+
+<!-- CART BACKDROP -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head">
+    <h3>🛒 Mon panier</h3>
+    <button class="modal-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">0,00 €</span>
+    </div>
+    <button class="btn-checkout" onclick="startCheckout()">Commander →</button>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="overlay" id="accountOverlay" onclick="closeOverlay('accountOverlay')">
+  <div class="modal" style="max-width:420px" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3 id="accountModalTitle">Mon compte</h3>
+      <button class="modal-close" onclick="closeOverlay('accountOverlay')">✕</button>
+    </div>
+    <div class="modal-body" id="accountModalBody">
+      <div class="tab-switch">
+        <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Connexion</button>
+        <button class="tab-btn" id="registerTab" onclick="switchTab('register')">Créer un compte</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="registerForm" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" id="regFirstName" placeholder="Jean">
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" id="regLastName" placeholder="Dupont">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="regEmail" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" id="regPhone" placeholder="+33 6 12 34 56 78">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" id="regPassword" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label>Confirmer le mot de passe</label>
+          <input type="password" id="regPassword2" placeholder="••••••••">
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="nav-btn btn-account" onclick="closeOverlay('accountOverlay')">Annuler</button>
+      <button class="nav-btn btn-cart" id="accountSubmitBtn" onclick="submitAccount()">Se connecter</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="checkoutOverlay" onclick="closeOverlay('checkoutOverlay')">
+  <div class="modal checkout-modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3>Finaliser la commande</h3>
+      <button class="modal-close" onclick="closeOverlay('checkoutOverlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- STEPS -->
+      <div class="checkout-steps">
+        <div class="step active" id="step1"><div class="step-num">1</div><br>Livraison</div>
+        <div class="step" id="step2"><div class="step-num">2</div><br>Paiement</div>
+        <div class="step" id="step3"><div class="step-num">3</div><br>Confirmation</div>
+      </div>
+
+      <!-- STEP 1 : LIVRAISON -->
+      <div class="checkout-step-content active" id="checkoutStep1">
+        <div class="section-sub">📦 Adresse de livraison</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom *</label>
+            <input type="text" id="shipFirst" placeholder="Jean">
+          </div>
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" id="shipLast" placeholder="Dupont">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Adresse *</label>
+          <input type="text" id="shipAddress" placeholder="12 rue des Lilas">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Code postal *</label>
+            <input type="text" id="shipZip" placeholder="59620" maxlength="5">
+          </div>
+          <div class="form-group">
+            <label>Ville *</label>
+            <input type="text" id="shipCity" placeholder="Louvroil">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Téléphone *</label>
+          <input type="tel" id="shipPhone" placeholder="+33 6 12 34 56 78">
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="shipEmail" placeholder="votre@email.com">
+        </div>
+        <div class="divider">Adresse de facturation</div>
+        <div class="form-group" style="flex-direction:row;align-items:center;gap:8px">
+          <input type="checkbox" id="billingSame" checked onchange="toggleBilling()" style="width:16px;height:16px;accent-color:var(--orange);flex-shrink:0">
+          <label style="font-size:0.82rem;font-weight:600;text-transform:none;letter-spacing:0;color:var(--dark);cursor:pointer" for="billingSame">Identique à l'adresse de livraison</label>
+        </div>
+        <div id="billingFields" style="display:none;display:flex;flex-direction:column;gap:14px;margin-top:4px">
+          <div class="form-group">
+            <label>Adresse de facturation *</label>
+            <input type="text" id="billAddress" placeholder="12 rue des Lilas">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Code postal *</label>
+              <input type="text" id="billZip" placeholder="59620">
+            </div>
+            <div class="form-group">
+              <label>Ville *</label>
+              <input type="text" id="billCity" placeholder="Louvroil">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notes / Instructions (optionnel)</label>
+          <textarea id="shipNote" placeholder="Instructions de livraison, sonnette..." style="min-height:60px"></textarea>
+        </div>
+      </div>
+
+      <!-- STEP 2 : PAIEMENT -->
+      <div class="checkout-step-content" id="checkoutStep2">
+        <div class="section-sub">💳 Mode de paiement</div>
+        <div class="payment-method">
+          <div class="pay-opt selected" id="payCard" onclick="selectPayMethod('card')">
+            <div class="pay-icon">💳</div>
+            <div class="pay-label">Carte bancaire</div>
+          </div>
+          <div class="pay-opt" id="payPaypal" onclick="selectPayMethod('paypal')">
+            <div class="pay-icon">🅿️</div>
+            <div class="pay-label">PayPal</div>
+          </div>
+          <div class="pay-opt" id="payVirement" onclick="selectPayMethod('virement')">
+            <div class="pay-icon">🏦</div>
+            <div class="pay-label">Virement</div>
+          </div>
+        </div>
+
+        <div id="cardFields">
+          <div class="form-group">
+            <label>Titulaire de la carte</label>
+            <input type="text" id="cardHolder" placeholder="JEAN DUPONT">
+          </div>
+          <div class="form-group card-field">
+            <label>Numéro de carte</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" autocomplete="cc-number">
+            <span class="card-brand" id="cardBrand">💳</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date d'expiration</label>
+              <input type="text" id="cardExp" placeholder="MM/AA" maxlength="5" oninput="formatExp(this)">
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" id="cardCvv" placeholder="123" maxlength="4" inputmode="numeric">
+            </div>
+          </div>
+          <div style="background:#e8f8ef;border-radius:8px;padding:10px 14px;font-size:0.75rem;color:#27ae60;display:flex;align-items:center;gap:8px">
+            🔒 Paiement 100% sécurisé — vos données sont chiffrées
+          </div>
+        </div>
+
+        <div id="paypalFields" style="display:none;text-align:center;padding:24px 0">
+          <div style="font-size:2.5rem;margin-bottom:12px">🅿️</div>
+          <p style="font-size:0.85rem;color:var(--gray)">Vous serez redirigé vers PayPal après confirmation.</p>
+        </div>
+
+        <div id="virementFields" style="display:none">
+          <div style="background:var(--gray-light);border-radius:10px;padding:16px;font-size:0.82rem;line-height:1.8">
+            <strong>Coordonnées bancaires J2BG :</strong><br>
+            IBAN : FR76 1234 5678 9012 3456 7890 123<br>
+            BIC : AGRIFRPP<br>
+            Référence : votre numéro de commande
+          </div>
+        </div>
+
+        <div class="section-sub" style="margin-top:16px">🛒 Récapitulatif</div>
+        <div class="order-summary-items" id="checkoutSummary"></div>
+      </div>
+
+      <!-- STEP 3 : CONFIRMATION -->
+      <div class="checkout-step-content" id="checkoutStep3">
+        <div class="success-screen">
+          <div class="success-icon">✅</div>
+          <h3>Commande confirmée !</h3>
+          <p>Merci pour votre commande. Vous recevrez une confirmation par email.</p>
+          <div class="order-ref" id="successOrderRef"></div>
+          <p style="font-size:0.8rem">Notre équipe préparera votre commande dans les meilleurs délais.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-foot" id="checkoutFoot">
+      <button class="nav-btn btn-account" id="checkoutBackBtn" onclick="checkoutBack()" style="display:none">← Retour</button>
+      <button class="nav-btn btn-cart" id="checkoutNextBtn" onclick="checkoutNext()">Continuer →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDERS HISTORY MODAL -->
+<div class="overlay" id="ordersOverlay" onclick="closeOverlay('ordersOverlay')">
+  <div class="modal orders-history-modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3>📦 Mes commandes</h3>
+      <button class="modal-close" onclick="closeOverlay('ordersOverlay')">✕</button>
+    </div>
+    <div class="modal-body" id="ordersHistoryBody"></div>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="overlay" id="profileOverlay" onclick="closeOverlay('profileOverlay')">
+  <div class="modal" style="max-width:420px" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h3>✏️ Mon profil</h3>
+      <button class="modal-close" onclick="closeOverlay('profileOverlay')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" id="profFirst">
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" id="profLast">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="profEmail">
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" id="profPhone">
+      </div>
+      <div class="form-group">
+        <label>Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+        <input type="password" id="profPassword" placeholder="••••••••">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="nav-btn btn-account" onclick="closeOverlay('profileOverlay')">Annuler</button>
+      <button class="nav-btn btn-cart" onclick="saveProfile()">💾 Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== DATA ====================
+const DEFAULT_PRODUCTS = [
+  { id:1, name:"Planche à découper gravée", category:"Gravure", price:18.50, oldPrice:null, stock:10, emoji:"🔪", image:null, description:"Planche en bois avec prénom ou message gravé au laser.", badge:"nouveau" },
+  { id:2, name:"Cadre photo en bois", category:"Gravure", price:12.00, oldPrice:15, stock:8, emoji:"🖼️", image:null, description:"Cadre en bois naturel avec gravure personnalisée. Format 10×15cm.", badge:"promo" },
+  { id:3, name:"Porte clés prénom", category:"Porte clés", price:5.00, oldPrice:null, stock:25, emoji:"🗝️", image:null, description:"Porte clés en bois gravé avec votre prénom ou message.", badge:"nouveau" },
+  { id:4, name:"Porte clés cœur", category:"Porte clés", price:6.00, oldPrice:null, stock:15, emoji:"❤️", image:null, description:"Porte clés en forme de cœur avec gravure personnalisée.", badge:null },
+  { id:5, name:"Carnet en bois", category:"Goodies", price:9.50, oldPrice:null, stock:12, emoji:"📓", image:null, description:"Carnet avec couverture en bois gravée. Pages blanches. Format A6.", badge:null },
+  { id:6, name:"Marque-page bois", category:"Goodies", price:3.50, oldPrice:null, stock:30, emoji:"🔖", image:null, description:"Marque-page en bois fin avec votre citation ou prénom gravé.", badge:"nouveau" },
+  { id:7, name:"Stylo bois personnalisé", category:"Goodies", price:7.00, oldPrice:9, stock:18, emoji:"✒️", image:null, description:"Stylo en bois tourné avec votre message gravé. Encre bleue.", badge:"promo" },
+  { id:8, name:"Horloge murale ronde", category:"Horloges", price:35.00, oldPrice:null, stock:5, emoji:"🕐", image:null, description:"Horloge murale en bois massif avec chiffres romains. Ø 30cm.", badge:"nouveau" },
+  { id:9, name:"Horloge personnalisée", category:"Horloges", price:42.00, oldPrice:50, stock:3, emoji:"⏰", image:null, description:"Horloge en bois avec photo ou texte gravé. Mécanisme silencieux.", badge:"promo" },
+];
+
+function getProducts() { const s = localStorage.getItem('j2bg_products'); return s ? JSON.parse(s) : DEFAULT_PRODUCTS; }
+function getOrders() { return JSON.parse(localStorage.getItem('j2bg_orders') || '[]'); }
+function saveOrders(o) { localStorage.setItem('j2bg_orders', JSON.stringify(o)); }
+function getCart() { return JSON.parse(localStorage.getItem('j2bg_cart') || '[]'); }
+function saveCart(c) { localStorage.setItem('j2bg_cart', JSON.stringify(c)); updateCartCount(); }
+function getUsers() { return JSON.parse(localStorage.getItem('j2bg_users') || '[]'); }
+function saveUsers(u) { localStorage.setItem('j2bg_users', JSON.stringify(u)); }
+function getCurrentUser() { const id = localStorage.getItem('j2bg_session'); if (!id) return null; return getUsers().find(u => u.id === id) || null; }
+
+if (!localStorage.getItem('j2bg_products')) localStorage.setItem('j2bg_products', JSON.stringify(DEFAULT_PRODUCTS));
+
+// ==================== PRODUCTS ====================
+let activeFilter = '';
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts() {
+  let products = getProducts();
+  if (activeFilter) products = products.filter(p => p.category === activeFilter);
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = products.map(p => {
+    const imgHtml = p.image
+      ? `<img src="${p.image}" alt="${p.name}">`
+      : p.emoji;
+    const badgeHtml = p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : '';
+    const priceHtml = p.oldPrice
+      ? `<div class="price-wrap"><span class="price">${p.price.toFixed(2).replace('.',',')} €</span><span class="old-price">${p.oldPrice.toFixed(2).replace('.',',')} €</span></div>`
+      : `<span class="price">${p.price.toFixed(2).replace('.',',')} €</span>`;
+    const actionHtml = p.stock > 0
+      ? `<button class="add-btn" onclick="addToCart(${p.id},event)">+</button>`
+      : `<span class="out-of-stock">Épuisé</span>`;
+    return `
+      <div class="product-card">
+        <div class="product-img">${imgHtml}${badgeHtml}</div>
+        <div class="product-body">
+          <div class="product-cat">${p.category}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.description || ''}</div>
+          <div class="product-footer">${priceHtml}${actionHtml}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ==================== CART ====================
+function updateCartCount() {
+  const cart = getCart();
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+}
+
+function addToCart(id, e) {
+  if (e) e.stopPropagation();
+  const products = getProducts();
+  const p = products.find(p => p.id === id);
+  if (!p || p.stock === 0) return;
+  const cart = getCart();
+  const existing = cart.find(i => i.id === id);
+  if (existing) {
+    if (existing.qty >= p.stock) { showToast('⚠️ Stock insuffisant'); return; }
+    existing.qty++;
+  } else {
+    cart.push({ id, name:p.name, price:p.price, emoji:p.emoji, image:p.image, qty:1 });
+  }
+  saveCart(cart);
+  showToast(`✅ ${p.name} ajouté au panier`);
+  renderCart();
+}
+
+function renderCart() {
+  const cart = getCart();
+  const itemsEl = document.getElementById('cartItems');
+  const footEl = document.getElementById('cartFoot');
+  if (!cart.length) {
+    itemsEl.innerHTML = '<div class="cart-empty"><div class="emoji">🛒</div><p>Votre panier est vide</p></div>';
+    footEl.style.display = 'none';
+    return;
+  }
+  footEl.style.display = 'block';
+  let total = 0;
+  itemsEl.innerHTML = cart.map(item => {
+    total += item.price * item.qty;
+    const imgHtml = item.image
+      ? `<img src="${item.image}" alt="${item.name}">`
+      : item.emoji || '📦';
+    return `<div class="cart-item">
+      <div class="cart-item-img">${imgHtml}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">${item.price.toFixed(2).replace('.',',')} €</div>
+      </div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+        <span class="qty-val">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+      </div>
+      <button class="remove-item" onclick="removeFromCart(${item.id})">✕</button>
+    </div>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent = total.toFixed(2).replace('.',',') + ' €';
+}
+
+function changeQty(id, delta) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { saveCart(cart.filter(i => i.id !== id)); }
+  else { saveCart(cart); }
+  renderCart();
+}
+
+function removeFromCart(id) { saveCart(getCart().filter(i => i.id !== id)); renderCart(); }
+function openCart() { document.getElementById('cartSidebar').classList.add('open'); document.getElementById('cartBackdrop').classList.add('open'); renderCart(); }
+function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('cartBackdrop').classList.remove('open'); }
+
+// ==================== ACCOUNT ====================
+let accountMode = 'login';
+
+function switchTab(mode) {
+  accountMode = mode;
+  document.getElementById('loginForm').style.display = mode === 'login' ? '' : 'none';
+  document.getElementById('registerForm').style.display = mode === 'register' ? '' : 'none';
+  document.getElementById('loginTab').classList.toggle('active', mode === 'login');
+  document.getElementById('registerTab').classList.toggle('active', mode === 'register');
+  document.getElementById('accountSubmitBtn').textContent = mode === 'login' ? 'Se connecter' : 'Créer mon compte';
+}
+
+function submitAccount() {
+  if (accountMode === 'login') {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pwd = document.getElementById('loginPassword').value;
+    if (!email || !pwd) { showToast('⚠️ Remplissez tous les champs'); return; }
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === btoa(pwd));
+    if (!user) { showToast('❌ Email ou mot de passe incorrect'); return; }
+    localStorage.setItem('j2bg_session', user.id);
+    closeOverlay('accountOverlay');
+    updateNavForUser();
+    showToast(`👋 Bonjour ${user.firstName} !`);
+  } else {
+    const firstName = document.getElementById('regFirstName').value.trim();
+    const lastName = document.getElementById('regLastName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pwd = document.getElementById('regPassword').value;
+    const pwd2 = document.getElementById('regPassword2').value;
+    if (!firstName || !lastName || !email || !pwd) { showToast('⚠️ Remplissez tous les champs obligatoires'); return; }
+    if (pwd !== pwd2) { showToast('❌ Les mots de passe ne correspondent pas'); return; }
+    if (pwd.length < 6) { showToast('⚠️ Mot de passe trop court (min. 6 caractères)'); return; }
+    const users = getUsers();
+    if (users.find(u => u.email === email)) { showToast('❌ Cet email est déjà utilisé'); return; }
+    const newUser = { id: 'u_' + Date.now(), firstName, lastName, email, phone, password: btoa(pwd), createdAt: new Date().toISOString() };
+    users.push(newUser);
+    saveUsers(users);
+    localStorage.setItem('j2bg_session', newUser.id);
+    closeOverlay('accountOverlay');
+    updateNavForUser();
+    showToast(`🎉 Compte créé ! Bienvenue ${firstName} !`);
+  }
+}
+
+function updateNavForUser() {
+  const user = getCurrentUser();
+  const btn = document.getElementById('accountBtn');
+  if (user) {
+    document.getElementById('accountBtnIcon').textContent = '👤';
+    document.getElementById('accountBtnLabel').textContent = user.firstName;
+    document.getElementById('menuUserName').textContent = user.firstName + ' ' + user.lastName;
+    document.getElementById('menuUserEmail').textContent = user.email;
+  } else {
+    document.getElementById('accountBtnIcon').textContent = '👤';
+    document.getElementById('accountBtnLabel').textContent = 'Mon compte';
+    btn.onclick = () => document.getElementById('accountOverlay').classList.add('open');
+  }
+}
+
+function toggleUserMenu() {
+  const user = getCurrentUser();
+  if (!user) { document.getElementById('accountOverlay').classList.add('open'); return; }
+  document.getElementById('userMenu').classList.toggle('open');
+}
+
+document.addEventListener('click', e => {
+  const menu = document.getElementById('userMenu');
+  if (!document.getElementById('accountBtn').contains(e.target)) menu.classList.remove('open');
+});
+
+function logout() {
+  localStorage.removeItem('j2bg_session');
+  document.getElementById('userMenu').classList.remove('open');
+  updateNavForUser();
+  showToast('👋 À bientôt !');
+  // reset account btn click
+  document.getElementById('accountBtn').onclick = toggleUserMenu;
+}
+
+function openOrders() {
+  document.getElementById('userMenu').classList.remove('open');
+  const user = getCurrentUser();
+  if (!user) return;
+  const orders = getOrders().filter(o => o.userId === user.id);
+  const body = document.getElementById('ordersHistoryBody');
+  if (!orders.length) {
+    body.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray)"><div style="font-size:2rem;margin-bottom:8px">📦</div><p>Aucune commande pour le moment.</p></div>';
+  } else {
+    const statusMap = { 'En attente':'status-attente','En préparation':'status-prep','Livré':'status-ok','Annulé':'status-annule' };
+    body.innerHTML = orders.slice().reverse().map(o => `
+      <div class="order-hist-item">
+        <div class="order-hist-header">
+          <span class="order-hist-ref">${o.id}</span>
+          <span class="order-hist-date">${new Date(o.date).toLocaleDateString('fr-FR')}</span>
+        </div>
+        <div class="order-hist-items">${(o.items||[]).map(i => `${i.emoji||'📦'} ${i.name} × ${i.qty}`).join(' · ')}</div>
+        <div class="order-hist-footer">
+          <span class="status-badge ${statusMap[o.status]||'status-attente'}">${o.status||'En attente'}</span>
+          <strong>${(o.total||0).toFixed(2).replace('.',',')} €</strong>
+        </div>
+      </div>`).join('');
+  }
+  document.getElementById('ordersOverlay').classList.add('open');
+}
+
+function openProfile() {
+  document.getElementById('userMenu').classList.remove('open');
+  const user = getCurrentUser();
+  if (!user) return;
+  document.getElementById('profFirst').value = user.firstName || '';
+  document.getElementById('profLast').value = user.lastName || '';
+  document.getElementById('profEmail').value = user.email || '';
+  document.getElementById('profPhone').value = user.phone || '';
+  document.getElementById('profPassword').value = '';
+  document.getElementById('profileOverlay').classList.add('open');
+}
+
+function saveProfile() {
+  const user = getCurrentUser();
+  if (!user) return;
+  const users = getUsers();
+  const idx = users.findIndex(u => u.id === user.id);
+  users[idx].firstName = document.getElementById('profFirst').value.trim();
+  users[idx].lastName = document.getElementById('profLast').value.trim();
+  users[idx].email = document.getElementById('profEmail').value.trim();
+  users[idx].phone = document.getElementById('profPhone').value.trim();
+  const newPwd = document.getElementById('profPassword').value;
+  if (newPwd.length >= 6) users[idx].password = btoa(newPwd);
+  saveUsers(users);
+  closeOverlay('profileOverlay');
+  updateNavForUser();
+  showToast('✅ Profil mis à jour');
+}
+
+// ==================== CHECKOUT ====================
+let checkoutStep = 1;
+let selectedPayMethod = 'card';
+
+function startCheckout() {
+  if (!getCart().length) return;
+  closeCart();
+  checkoutStep = 1;
+  renderCheckoutSteps();
+  renderCheckoutSummary();
+  prefillFromUser();
+  document.getElementById('checkoutOverlay').classList.add('open');
+}
+
+function prefillFromUser() {
+  const user = getCurrentUser();
+  if (!user) return;
+  document.getElementById('shipFirst').value = user.firstName || '';
+  document.getElementById('shipLast').value = user.lastName || '';
+  document.getElementById('shipPhone').value = user.phone || '';
+  document.getElementById('shipEmail').value = user.email || '';
+}
+
+function renderCheckoutSteps() {
+  for (let i = 1; i <= 3; i++) {
+    const stepEl = document.getElementById('step' + i);
+    stepEl.className = 'step' + (i < checkoutStep ? ' done' : i === checkoutStep ? ' active' : '');
+    if (i < checkoutStep) stepEl.querySelector('.step-num').textContent = '✓';
+    else stepEl.querySelector('.step-num').textContent = i;
+    document.getElementById('checkoutStep' + i).className = 'checkout-step-content' + (i === checkoutStep ? ' active' : '');
+  }
+  document.getElementById('checkoutBackBtn').style.display = checkoutStep > 1 && checkoutStep < 3 ? '' : 'none';
+  document.getElementById('checkoutNextBtn').textContent = checkoutStep === 1 ? 'Continuer →' : checkoutStep === 2 ? '💳 Payer maintenant' : 'Fermer';
+}
+
+function renderCheckoutSummary() {
+  const cart = getCart();
+  let total = 0;
+  let html = cart.map(item => {
+    const line = item.price * item.qty;
+    total += line;
+    return `<div class="sum-item"><span>${item.emoji||'📦'} ${item.name} × ${item.qty}</span><span>${line.toFixed(2).replace('.',',')} €</span></div>`;
+  }).join('');
+  html += `<div class="sum-total"><span>Total</span><span>${total.toFixed(2).replace('.',',')} €</span></div>`;
+  document.getElementById('checkoutSummary').innerHTML = html;
+}
+
+function checkoutNext() {
+  if (checkoutStep === 3) { closeOverlay('checkoutOverlay'); return; }
+  if (checkoutStep === 1) {
+    if (!validateDelivery()) return;
+    checkoutStep = 2;
+  } else if (checkoutStep === 2) {
+    if (!validatePayment()) return;
+    placeOrder();
+    checkoutStep = 3;
+  }
+  renderCheckoutSteps();
+}
+
+function checkoutBack() {
+  if (checkoutStep > 1) { checkoutStep--; renderCheckoutSteps(); }
+}
+
+function validateDelivery() {
+  const fields = ['shipFirst','shipLast','shipAddress','shipZip','shipCity','shipPhone','shipEmail'];
+  for (const f of fields) {
+    if (!document.getElementById(f).value.trim()) {
+      showToast('⚠️ Veuillez remplir tous les champs obligatoires');
+      document.getElementById(f).focus();
+      return false;
+    }
+  }
+  if (!document.getElementById('billingSame').checked) {
+    if (!document.getElementById('billAddress').value.trim() || !document.getElementById('billZip').value.trim() || !document.getElementById('billCity').value.trim()) {
+      showToast('⚠️ Remplissez l\'adresse de facturation');
+      return false;
+    }
+  }
+  return true;
+}
+
+function validatePayment() {
+  if (selectedPayMethod === 'card') {
+    const num = document.getElementById('cardNumber').value.replace(/\s/g,'');
+    const exp = document.getElementById('cardExp').value;
+    const cvv = document.getElementById('cardCvv').value;
+    const holder = document.getElementById('cardHolder').value.trim();
+    if (!holder || num.length < 16 || !exp || cvv.length < 3) {
+      showToast('⚠️ Remplissez correctement les informations de carte');
+      return false;
+    }
+  }
+  return true;
+}
+
+function placeOrder() {
+  const cart = getCart();
+  const user = getCurrentUser();
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const sameAddr = document.getElementById('billingSame').checked;
+
+  const shipAddr = {
+    firstName: document.getElementById('shipFirst').value.trim(),
+    lastName: document.getElementById('shipLast').value.trim(),
+    address: document.getElementById('shipAddress').value.trim(),
+    zip: document.getElementById('shipZip').value.trim(),
+    city: document.getElementById('shipCity').value.trim(),
+    phone: document.getElementById('shipPhone').value.trim(),
+    email: document.getElementById('shipEmail').value.trim(),
+    note: document.getElementById('shipNote').value.trim(),
+  };
+
+  const billAddr = sameAddr ? { ...shipAddr } : {
+    address: document.getElementById('billAddress').value.trim(),
+    zip: document.getElementById('billZip').value.trim(),
+    city: document.getElementById('billCity').value.trim(),
+  };
+
+  const payInfo = selectedPayMethod === 'card' ? {
+    method: 'card',
+    holder: document.getElementById('cardHolder').value.trim(),
+    last4: document.getElementById('cardNumber').value.replace(/\s/g,'').slice(-4),
+    expiry: document.getElementById('cardExp').value,
+  } : { method: selectedPayMethod };
+
+  const orderId = 'CMD-' + Date.now().toString(36).toUpperCase();
+  const order = {
+    id: orderId,
+    date: new Date().toISOString(),
+    userId: user?.id || null,
+    customer: shipAddr.firstName + ' ' + shipAddr.lastName,
+    email: shipAddr.email,
+    phone: shipAddr.phone,
+    shippingAddress: shipAddr,
+    billingAddress: billAddr,
+    payment: payInfo,
+    items: cart,
+    total,
+    status: 'En attente',
+  };
+
+  const orders = getOrders();
+  orders.unshift(order);
+  saveOrders(orders);
+  saveCart([]);
+  updateCartCount();
+
+  document.getElementById('successOrderRef').textContent = '📦 Référence : ' + orderId;
+  document.getElementById('checkoutFoot').querySelector('#checkoutBackBtn').style.display = 'none';
+}
+
+function toggleBilling() {
+  const same = document.getElementById('billingSame').checked;
+  document.getElementById('billingFields').style.display = same ? 'none' : 'flex';
+}
+
+function selectPayMethod(method) {
+  selectedPayMethod = method;
+  ['card','paypal','virement'].forEach(m => {
+    document.getElementById('pay' + m.charAt(0).toUpperCase() + m.slice(1)).classList.toggle('selected', m === method);
+    const fieldsId = m === 'card' ? 'cardFields' : m + 'Fields';
+    const el = document.getElementById(fieldsId);
+    if (el) el.style.display = m === method ? '' : 'none';
+  });
+}
+
+function formatCard(input) {
+  let val = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = val.replace(/(.{4})/g, '$1 ').trim();
+  const brands = { '4':'💳 Visa', '5':'💳 MC', '3':'💳 Amex', '6':'💳 CB' };
+  document.getElementById('cardBrand').textContent = brands[val[0]] || '💳';
+}
+
+function formatExp(input) {
+  let val = input.value.replace(/\D/g, '');
+  if (val.length >= 3) val = val.substring(0,2) + '/' + val.substring(2,4);
+  input.value = val;
+}
+
+// ==================== UTILS ====================
+function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ==================== INIT ====================
+renderProducts();
+updateCartCount();
+renderCart();
+updateNavForUser();
+document.getElementById('accountBtn').onclick = toggleUserMenu;
+
+// sync across tabs
+window.addEventListener('storage', () => { renderProducts(); updateCartCount(); renderCart(); updateNavForUser(); });
+</script>
+</body>
+</html>
