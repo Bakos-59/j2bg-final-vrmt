@@ -206,6 +206,22 @@ tbody tr:hover { background:#fefcfa; }
 </head>
 <body>
 
+<!-- LOGIN GATE -->
+<div id="loginGate" style="position:fixed;inset:0;background:#1E1209;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;">
+  <div style="background:white;border-radius:18px;padding:36px;width:100%;max-width:360px;box-shadow:0 24px 80px rgba(0,0,0,0.4);">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:2rem;margin-bottom:8px;">🪵</div>
+      <div style="font-size:1.2rem;font-weight:800;color:#1E1209;">J2<span style="color:#f46530;">BG</span> Administration</div>
+      <div style="font-size:0.75rem;color:#6B6B6B;margin-top:4px;">Accès réservé</div>
+    </div>
+    <input type="password" id="loginPwdInput" placeholder="Mot de passe" autocomplete="off"
+      style="width:100%;border:1.5px solid #E8E0D8;border-radius:8px;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:0.9rem;outline:none;background:#F4F1EE;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')checkAdminLogin()">
+    <div id="loginError" style="color:#e74c3c;font-size:0.78rem;font-weight:600;margin-bottom:12px;display:none;">⚠️ Mot de passe incorrect</div>
+    <button onclick="checkAdminLogin()" style="width:100%;background:#f46530;color:white;border:none;border-radius:8px;padding:12px;font-family:'Montserrat',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;">Se connecter</button>
+  </div>
+</div>
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
@@ -939,7 +955,17 @@ function importData(){document.getElementById('importFile').click();}
 function handleImport(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const data=JSON.parse(ev.target.result);if(data.products)saveProducts(data.products);if(data.orders)saveOrders(data.orders);if(data.users)localStorage.setItem('j2bg_users',JSON.stringify(data.users));if(data.settings)saveSettings(data.settings);showToast('✅ Données importées');refreshDashboard();}catch{showToast('❌ Fichier invalide');}};r.readAsText(f);}
 function resetProducts(){showConfirm('Réinitialiser','Les produits par défaut seront restaurés.','🔄',()=>{saveProducts(DEFAULT_PRODUCTS);renderProducts();showToast('🔄 Produits réinitialisés');});}
 function confirmReset(){showConfirm('Effacer TOUT','Toutes les données seront supprimées définitivement.','⚠️',()=>{['j2bg_products','j2bg_orders','j2bg_cart','j2bg_users','j2bg_session','j2bg_settings'].forEach(k=>localStorage.removeItem(k));showToast('🗑 Données effacées');refreshDashboard();});}
-function changeAdminPwd(){showToast('ℹ️ La protection admin sera ajoutée dans une prochaine version.');}
+function changeAdminPwd(){
+  const current = prompt('Mot de passe actuel :');
+  if (current === null) return;
+  if (current !== getAdminPwd()) { showToast('❌ Mot de passe actuel incorrect'); return; }
+  const next = prompt('Nouveau mot de passe :');
+  if (!next) return;
+  const confirmNext = prompt('Confirmez le nouveau mot de passe :');
+  if (next !== confirmNext) { showToast('❌ Les mots de passe ne correspondent pas'); return; }
+  localStorage.setItem('j2bg_admin_pwd', next);
+  showToast('✅ Mot de passe mis à jour');
+}
 
 // ==================== UTILS ====================
 function statusBadge(s){const map={'En attente':'status-attente','En préparation':'status-prep','Livré':'status-ok','Annulé':'status-annule'};return`<span class="status-badge ${map[s]||'status-attente'}"><span class="status-dot"></span>${s||'En attente'}</span>`;}
@@ -951,6 +977,32 @@ function closeConfirm(){document.getElementById('confirmBox').classList.remove('
 document.getElementById('confirmOk').onclick=()=>{if(confirmCallback)confirmCallback();closeConfirm();};
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function closeModalOnBg(e,id){if(e.target===document.getElementById(id))closeModal(id);}
+
+// ==================== LOGIN GATE ====================
+function getAdminPwd(){
+  let pwd = localStorage.getItem('j2bg_admin_pwd');
+  if (!pwd) { pwd = 'admin123'; localStorage.setItem('j2bg_admin_pwd', pwd); }
+  return pwd;
+}
+function checkAdminLogin(){
+  const input = document.getElementById('loginPwdInput').value;
+  if (input === getAdminPwd()) {
+    sessionStorage.setItem('j2bg_admin_authed', 'yes');
+    document.getElementById('loginGate').style.display = 'none';
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginPwdInput').value = '';
+    document.getElementById('loginPwdInput').focus();
+  }
+}
+(function initLoginGate(){
+  if (sessionStorage.getItem('j2bg_admin_authed') === 'yes') {
+    document.getElementById('loginGate').style.display = 'none';
+  } else {
+    getAdminPwd(); // s'assure qu'un mot de passe existe
+    setTimeout(()=>document.getElementById('loginPwdInput')?.focus(), 100);
+  }
+})();
 
 // INIT
 refreshDashboard();
